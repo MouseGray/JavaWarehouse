@@ -1,7 +1,5 @@
-package Commands;
+package commands;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.HashMultiset;
 import storage.Item;
 import storage.Storage;
 

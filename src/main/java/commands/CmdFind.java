@@ -1,12 +1,9 @@
-package Commands;
+package commands;
 
-import com.google.common.collect.HashMultiset;
-import storage.Item;
 import storage.ItemStack;
 import storage.Storage;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CmdFind implements ICommand {
     private Storage storage;

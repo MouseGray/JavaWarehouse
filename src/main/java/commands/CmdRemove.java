@@ -1,6 +1,5 @@
-package Commands;
+package commands;
 
-import storage.Item;
 import storage.Storage;
 
 public class CmdRemove implements ICommand {

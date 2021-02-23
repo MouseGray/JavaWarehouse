@@ -1,16 +1,10 @@
-package Commands;
+package commands;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multiset;
-import storage.Item;
 import storage.ItemStack;
 import storage.Storage;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
 
 public class CmdSave implements ICommand {
     private Storage storage;
