@@ -4,6 +4,10 @@ import storage.ItemStack;
 import storage.Storage;
 
 public class CmdAll implements ICommand {
+    private static final String HEADER_TEXT = "Items: ";
+    private static final String FAIL_TEXT = "--Empty--";
+    private static final String SIGNATURE = "Enter: all";
+
     private Storage storage;
 
     public CmdAll(Storage storage) {
@@ -12,7 +16,7 @@ public class CmdAll implements ICommand {
 
     @Override
     public String signature() {
-        return "Enter: all";
+        return SIGNATURE;
     }
 
     @Override
@@ -22,9 +26,9 @@ public class CmdAll implements ICommand {
 
     @Override
     public void release(String[] parts) {
-        System.out.println("Items: ");
+        System.out.println(HEADER_TEXT);
         if (storage.getData().isEmpty())
-            System.out.println("--Empty--");
+            System.out.println(FAIL_TEXT);
         else
             for(ItemStack i: storage.getData())
                 System.out.println(i.toString());

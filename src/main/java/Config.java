@@ -9,10 +9,11 @@ import java.util.*;
 public class Config {
     private static final String property_path = "path";
     private static final String property_filters = "filters";
+    private static final String start_file = "\\Data.wh";
 
     private Multimap<String, String> properties = HashMultimap.create();
 
-    private String dataFilePath = System.getProperty("user.dir") + "\\Data.wh";
+    private String dataFilePath = System.getProperty("user.dir") + start_file;
 
     private void create(String filename) throws IOException {
         File file = new File(filename);

@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Application {
+    private static final String ERROR_PROPERTIES_PATH = "[ERROR://config] Property path not found";
+    private static final String ERROR_DATA_PATH = "[ERROR://data] File not found: ";
+
     Storage storage = new Storage();
     Config config;
     boolean isInitialized;
@@ -31,7 +34,7 @@ public class Application {
 
     public void load() {
         if (config.getDataFilePath() == null) {
-            System.out.println("[ERROR://config] Property path not found");
+            System.out.println(ERROR_PROPERTIES_PATH);
             return;
         }
         try(Scanner scan = new Scanner(new File(config.getDataFilePath()))) {
@@ -43,7 +46,7 @@ public class Application {
                 } catch (NumberFormatException e) { /* skip line */ }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("[ERROR://data] File not found: " + config.getDataFilePath());
+            System.out.println(ERROR_DATA_PATH + config.getDataFilePath());
         }
         this.isInitialized = true;
     }

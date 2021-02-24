@@ -7,6 +7,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class CmdSave implements ICommand {
+    private static final String SUCCESS_TEXT = "Data successfully saved.";
+    private static final String FAIL_TEXT = "Writing to file failed.";
+    private static final String SIGNATURE = "Enter: save";
+
     private Storage storage;
     private String filePath;
 
@@ -17,7 +21,7 @@ public class CmdSave implements ICommand {
 
     @Override
     public String signature() {
-        return "Enter: save";
+        return SIGNATURE;
     }
 
     @Override
@@ -33,9 +37,9 @@ public class CmdSave implements ICommand {
                 writer.write(i.toString() + "\r\n");
             }
             writer.close();
-            System.out.println("Data successfully saved.");
+            System.out.println(SUCCESS_TEXT);
         } catch (IOException e) {
-            System.out.println("Writing to file failed: " + filePath);
+            System.out.println(FAIL_TEXT);
         }
     }
 }

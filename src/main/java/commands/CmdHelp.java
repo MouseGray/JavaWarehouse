@@ -1,9 +1,11 @@
 package commands;
 
 public class CmdHelp  implements ICommand {
+    private static final String SIGNATURE = "Enter: help";
+
     @Override
     public String signature() {
-        return "Enter: help";
+        return SIGNATURE;
     }
 
     @Override

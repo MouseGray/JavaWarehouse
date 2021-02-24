@@ -6,6 +6,11 @@ import storage.Storage;
 import java.util.ArrayList;
 
 public class CmdAdd implements ICommand {
+    private static final String SUCCESS_TEXT = "Item successfully added.";
+    private static final String FAIL_TEXT = "Incorrectly item data.";
+    private static final String SIGNATURE = "Enter: add [name] [category]";
+
+
     private Storage storage;
     private ArrayList<String> filters;
 
@@ -16,7 +21,7 @@ public class CmdAdd implements ICommand {
 
     @Override
     public String signature() {
-        return "Enter: add [name] [category]";
+        return SIGNATURE;
     }
 
     @Override
@@ -34,9 +39,9 @@ public class CmdAdd implements ICommand {
     @Override
     public void release(String[] args) {
         if (isCorrectName(args[0]) && storage.add(new Item(args[0], args[1]))) {
-            System.out.println("Item successfully added.");
+            System.out.println(SUCCESS_TEXT);
             return;
         }
-        System.out.println("Incorrectly item data.");
+        System.out.println(FAIL_TEXT);
     }
 }

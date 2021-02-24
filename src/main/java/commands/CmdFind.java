@@ -6,6 +6,10 @@ import storage.Storage;
 import java.util.List;
 
 public class CmdFind implements ICommand {
+    private static final String FAIL_REGEX_FIND = "--Empty--";
+    private static final String FAIL_FIND = "Item not found";
+    private static final String SIGNATURE = "Enter: find [name] or [name*] for list";
+
     private Storage storage;
 
     public CmdFind(Storage storage) {
@@ -13,9 +17,7 @@ public class CmdFind implements ICommand {
     }
 
     @Override
-    public String signature() {
-        return "Enter: find [name] or [name*] for list";
-    }
+    public String signature() { return SIGNATURE; }
 
     @Override
     public int argCount() {
@@ -26,7 +28,7 @@ public class CmdFind implements ICommand {
         List<ItemStack> res = storage.filter(regex);
 
         if (res.isEmpty())
-            System.out.println("--Empty--");
+            System.out.println(FAIL_REGEX_FIND);
         else
             for(ItemStack i: res) System.out.println(i.toString());
     }
@@ -34,7 +36,7 @@ public class CmdFind implements ICommand {
     private void findStd(String name) {
         ItemStack res = storage.find(name);
         if (res == null)
-            System.out.println("Item not found");
+            System.out.println(FAIL_FIND);
         else
             System.out.println(res.toString());
     }

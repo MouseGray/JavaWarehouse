@@ -3,6 +3,10 @@ package commands;
 import storage.Storage;
 
 public class CmdRemove implements ICommand {
+    private static final String SUCCESS_TEXT = "Item successfully removed.";
+    private static final String FAIL_TEXT = "Item not found.";
+    private static final String SIGNATURE = "Enter: remove [name]";
+
     private Storage storage;
 
     public CmdRemove(Storage storage) {
@@ -11,7 +15,7 @@ public class CmdRemove implements ICommand {
 
     @Override
     public String signature() {
-        return "Enter: remove [name]";
+        return SIGNATURE;
     }
 
     @Override
@@ -22,8 +26,8 @@ public class CmdRemove implements ICommand {
     @Override
     public void release(String[] args) {
         if (storage.remove(args[0]))
-            System.out.println("Item successfully removed.");
+            System.out.println(SUCCESS_TEXT);
         else
-            System.out.println("Item not found.");
+            System.out.println(FAIL_TEXT);
     }
 }
