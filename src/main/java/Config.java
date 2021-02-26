@@ -1,59 +1,44 @@
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 public class Config {
     private static final String property_path = "path";
     private static final String property_filters = "filters";
-    private static final String start_file = "\\Data.wh";
 
-    private Multimap<String, String> properties = HashMultimap.create();
+    private String dataFilePath = null;
+    private final List<Pattern> filters = new ArrayList<>();
 
-    private String dataFilePath = System.getProperty("user.dir") + start_file;
-
-    private void create(String filename) throws IOException {
-        File file = new File(filename);
-        if (file.createNewFile()) {
-            try(FileWriter writer = new FileWriter(file)) {
-                writer.write(property_path + "=" + dataFilePath +"\n");
-            }
-        }
-    }
-
-    private void setProperties() {
-        properties.put(property_path, dataFilePath);
-    }
-
-    private void getProperties(String filename) throws FileNotFoundException {
+    public Config(String filename) throws FileNotFoundException, IllegalArgumentException {
         Scanner scan = new Scanner(new File(filename));
         while (scan.hasNext()) {
             String[] parts = scan.nextLine().trim().split("(\\+=)|=", 2);
             if (parts.length != 2) continue;
-            properties.put(parts[0].trim(), parts[1].trim());
+            if (parts[0].equals(property_path)) {
+                dataFilePath = parts[1];
+                continue;
+            }
+            try {
+                if (parts[0].equals(property_filters)) {
+                    filters.add(Pattern.compile(parts[1]));
+                }
+            }
+            catch (PatternSyntaxException ignored) {
+            }
         }
         scan.close();
+
+        if (dataFilePath == null) {
+            throw new IllegalArgumentException("Data file path not found or incorrect.");
+        }
     }
 
-    public void load(String filename) throws IOException {
-        File file = new File(filename);
-        if (file.exists())
-            getProperties(filename);
-        else {
-            setProperties();
-            create(filename);
-        }
+    public List<Pattern> getFilters() {
+        return filters;
     }
 
     public String getDataFilePath() {
-        ArrayList<String> result = new ArrayList<>(properties.get(property_path));
-        return result.isEmpty() ? null : result.get(0);
-    }
-
-    public ArrayList<String> getItemFilters() {
-        return new ArrayList<>(properties.get(property_filters));
+        return dataFilePath;
     }
 }

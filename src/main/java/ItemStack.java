@@ -1,5 +1,3 @@
-package storage;
-
 public class ItemStack {
     private Item item;
     private int count;

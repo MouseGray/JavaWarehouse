@@ -1,21 +1,16 @@
-import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class Main {
     static final String configFileName = "settings.cfg";
-    static final String ERROR_CONFIG_FILE_PATH = "[ERROR] Config file not found.";
-    public static void main(String[] args) {
 
-        Config cfg = new Config();
+    public static void main(String[] args)
+    {
         try {
-            cfg.load(configFileName);
+            Application app = new Application(new Config(configFileName));
+            app.exec();
         }
-        catch (IOException e) {
-            System.out.println(ERROR_CONFIG_FILE_PATH);
-            return;
+        catch (FileNotFoundException | IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
-
-        Application app = new Application(cfg);
-        app.load();
-        app.exec();
     }
 }
