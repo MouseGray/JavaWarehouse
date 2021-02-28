@@ -1,3 +1,5 @@
+package ApplicationPkg;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -35,17 +37,17 @@ public class CommandSystem {
     private final List<CommandMethod> methods = new ArrayList<>();
 
     public CommandSystem(Class<?> ... classes) {
-        for (Class<?> c: classes){
+        /*for (Class<?> c: classes){
             for (Method m: c.getMethods()) {
                 if (m.isAnnotationPresent(Command.class)) {
                     methods.add(new CommandMethod(m));
                 }
             }
-        }
+        }*/
     }
 
     public String apply(Object obj, String ... args) {
-        if (args.length == 0) return null;
+        /*if (args.length == 0) return null;
 
         for (CommandMethod cm : methods) {
             if (args[0].equals(cm.method.getName())) {
@@ -56,7 +58,7 @@ public class CommandSystem {
                     return e.getMessage();
                 }
             }
-        }
+        }*/
         return null;
     }
 }

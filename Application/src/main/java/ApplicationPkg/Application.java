@@ -1,3 +1,5 @@
+package ApplicationPkg;
+
 import java.util.Scanner;
 
 public class Application {
@@ -24,7 +26,7 @@ public class Application {
 
             String[] parts = line.split("\\s");
 
-            String result = commandSystem.apply(storage, parts);
+            String result = ApplicationPkg.CommandSystems.exec(storage, parts);//commandSystem.apply(storage, parts);
             if (result == null) {
                 System.out.println("Unknown command");
                 continue;

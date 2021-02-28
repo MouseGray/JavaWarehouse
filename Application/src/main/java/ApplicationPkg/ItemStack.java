@@ -1,3 +1,5 @@
+package ApplicationPkg;
+
 public class ItemStack {
     private Item item;
     private int count;
