@@ -21,12 +21,11 @@ public class Config {
                 dataFilePath = parts[1];
                 continue;
             }
-            try {
-                if (parts[0].equals(property_filters)) {
+            if (parts[0].equals(property_filters)) {
+                try {
                     filters.add(Pattern.compile(parts[1]));
                 }
-            }
-            catch (PatternSyntaxException ignored) {
+                catch(PatternSyntaxException ignored){ }
             }
         }
         scan.close();

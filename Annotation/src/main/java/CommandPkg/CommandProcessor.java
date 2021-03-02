@@ -2,8 +2,6 @@ package CommandPkg;
 
 import javax.annotation.processing.*;
 import javax.lang.model.element.*;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
@@ -13,15 +11,11 @@ import java.util.Set;
 
 public class CommandProcessor extends AbstractProcessor {
 
-    private Types types;
-    private Elements elements;
     private Filer filer;
     private Messager messager;
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        types = processingEnv.getTypeUtils();
-        elements = processingEnv.getElementUtils();
         filer = processingEnv.getFiler();
         messager = processingEnv.getMessager();
     }
@@ -29,7 +23,6 @@ public class CommandProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         try {
-            System.out.println("567:Found");
             JavaFileObject jfo = filer.createSourceFile("CommandSystems");
             try {
                 Writer writer = jfo.openWriter();
@@ -40,14 +33,13 @@ public class CommandProcessor extends AbstractProcessor {
 
                 for(Element element : roundEnv.getElementsAnnotatedWith(Command.class)) {
                     if (element.getKind() != ElementKind.METHOD) {
-                        messager.printMessage(Diagnostic.Kind.ERROR, "Error!");
+                        messager.printMessage(Diagnostic.Kind.ERROR, "Annotated not method.");
                         return true;
                     }
                     ExecutableElement executableElement = (ExecutableElement) element;
-                    writer.append("if (\"").append(executableElement.getSimpleName()).append("\".equals(args[0])) {\n");
-                    writer.append("if (args.length - 1 < ").append(String.valueOf(executableElement.getParameters().size()))
-                            .append(") return \"").append(createSignature(executableElement)).append("\";\n");
-                    writer.append("return obj.").append(executableElement.getSimpleName()).append("(");
+                    writer.append("if (\"").append(String.valueOf(executableElement.getSimpleName())).append("\".equals(args[0])) {\n");
+                    writer.append("if (args.length - 1 < ").append(String.valueOf(executableElement.getParameters().size())).append(") return \"").append(createSignature(executableElement)).append("\";\n");
+                    writer.append("return obj.").append(String.valueOf(executableElement.getSimpleName())).append("(");
                     for (int i = 0; i < executableElement.getParameters().size(); i++) {
                         writer.append("args[").append(String.valueOf(i + 1));
                         writer.append("]");

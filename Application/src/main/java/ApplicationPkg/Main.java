@@ -3,7 +3,7 @@ package ApplicationPkg;
 import java.io.FileNotFoundException;
 
 public class Main {
-    static final String configFileName = "settings.cfg";
+    public static final String configFileName = "settings.cfg";
 
     public static void main(String[] args)
     {

@@ -31,7 +31,7 @@ public class ItemStack {
     }
 
     public void increase() {
-        this.count++;
+        increase(1);
     }
 
     public void increase(int count) {
@@ -39,7 +39,7 @@ public class ItemStack {
     }
 
     public void decrease() {
-        this.count--;
+        decrease(1);
     }
 
     public void decrease(int count) {

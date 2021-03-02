@@ -16,6 +16,7 @@ public class Storage {
     }
 
     @Command
+    @SuppressWarnings("unused")
     public String help() {
         return "List of commands: " +
                 "add [name] [category] - add new item" +
@@ -27,6 +28,7 @@ public class Storage {
     }
 
     @Command
+    @SuppressWarnings("unused")
     public String load() {
         try(Scanner scan = new Scanner(new File(config.getDataFilePath()))) {
             while (scan.hasNext()) {
@@ -43,6 +45,7 @@ public class Storage {
     }
 
     @Command
+    @SuppressWarnings("unused")
     public String save() {
         try {
             FileWriter writer = new FileWriter(config.getDataFilePath());
@@ -59,6 +62,7 @@ public class Storage {
     }
 
     @Command
+    @SuppressWarnings("unused")
     public String add(String name, String category) {
         return add(name, category, 1);
     }
@@ -82,6 +86,7 @@ public class Storage {
     }
 
     @Command
+    @SuppressWarnings("unused")
     public String remove(String name, String category) {
         ArrayList<ItemStack> existedStack = data.get(name);
         if (existedStack == null) return "Item not found";
@@ -97,11 +102,13 @@ public class Storage {
     }
 
     @Command
+    @SuppressWarnings("unused")
     public String find(String name) {
         return ArrayItemsToString(data.get(name));
     }
 
     @Command
+    @SuppressWarnings("unused")
     public String all() {
         StringBuilder buffer = new StringBuilder();
         for (Map.Entry<String, ArrayList<ItemStack>> value: data.entrySet())
